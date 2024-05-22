@@ -14,6 +14,7 @@ export const Navbar = () => {
             <div
               className="capitalize px-5 cursor-pointer text-sm text-gray hover:text-white transition-all"
               key={uuid()}
+              data-testid="navItem"
             >
               {navItem}
             </div>
