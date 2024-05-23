@@ -16,11 +16,15 @@ export const Hero = () => {
     });
   }, []);
   return (
-    <section className="w-full nav-height bg-black relative">
+    <section
+      data-testid="heroSection"
+      className="w-full nav-height bg-black relative"
+    >
       <div className="h-5/6 w-full flex flex-center flex-col">
         <p className="hero-title">iPhone 15 Pro</p>
         <div className="md:w-10/12 w-9/12">
           <video
+            data-testid="heroVideo"
             className="pointer-events-none"
             autoPlay
             muted
@@ -33,13 +37,16 @@ export const Hero = () => {
       </div>
 
       <div
+        data-testid="ctaCon"
         id="cta"
         className="flex flex-col items-center opacity-0 translate-y-20"
       >
-        <a href="#highlights" className="btn">
+        <a data-testid="ctaLink" href="#highlights" className="btn">
           Buy
         </a>
-        <p className="font-normal text-xl">From $199/month or $999</p>
+        <p data-testid="ctaP" className="font-normal text-xl">
+          From $199/month or $999
+        </p>
       </div>
     </section>
   );
