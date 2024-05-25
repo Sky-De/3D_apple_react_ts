@@ -1,6 +1,6 @@
 import { appleImg, bagImg, searchImg } from "../utils";
 import { v4 as uuid } from "uuid";
-import IconImage from "./Icon";
+import IconImage from "./IconImage";
 import { navLists } from "../constants";
 
 export const Navbar = () => {
