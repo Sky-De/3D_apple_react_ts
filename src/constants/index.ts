@@ -9,9 +9,16 @@ import {
   yellowImg,
 } from "../utils";
 
-export const navLists = ["Store", "Mac", "iPhone", "Support"];
+export type NavLists = string[];
+export const navLists: NavLists = ["Store", "Mac", "iPhone", "Support"];
 
-export const hightlightsSlides = [
+export type HighLightSlide = {
+  id: number;
+  textLists: Array<string>;
+  video: string;
+  videoDuration: number;
+};
+export const highlightsSlides: HighLightSlide[] = [
   {
     id: 1,
     textLists: [
