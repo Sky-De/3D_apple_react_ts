@@ -1,137 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
 import { highlightsSlides } from "../constants";
-import gsap from "gsap";
 import { pauseImg, playImg, replayImg } from "../utils";
-import { useGSAP } from "@gsap/react";
-
-type VideoState = {
-  isEnd: boolean;
-  startPlay: boolean;
-  videoId: number;
-  isLastVideo: boolean;
-  isPlaying: boolean;
-};
-const InitailVideoState: VideoState = {
-  isEnd: false,
-  startPlay: false,
-  videoId: 0,
-  isLastVideo: false,
-  isPlaying: false,
-};
-
+import { useVideoAnimation } from "../hooks/useVideoAnimation";
+// -------------- ------------------------- ----------------------------- ----------------------------- -------------------
 const VideoCarousel = () => {
-  const videoRef = useRef<HTMLVideoElement[]>([]);
-  const videoSpanRef = useRef<HTMLSpanElement[]>([]);
-  const videoDivRef = useRef<HTMLSpanElement[]>([]);
-  const [video, setVideo] = useState<VideoState>(InitailVideoState);
-  const { isEnd, startPlay, videoId, isLastVideo, isPlaying } = video;
-  const [loadedData, setLoadedData] = useState([]);
+  const {
+    videoRef,
+    isPlaying,
+    videoDivRef,
+    isLastVideo,
+    videoSpanRef,
+    setVideo,
+    handleProcess,
+    handleLoadedMetadata,
+  } = useVideoAnimation();
 
-  useGSAP(() => {
-    gsap.to("#slider", {
-      transform: `translateX(${-100 * videoId}%)`,
-      duration: 2,
-      ease: "power2.inOut",
-    });
-    gsap.to("#video", {
-      scrollTrigger: {
-        trigger: "#video",
-        toggleActions: "restart none none none",
-      },
-      onComplete: () => {
-        setVideo((pre) => ({ ...pre, startPlay: true, isPlaying: true }));
-      },
-    });
-  }, []);
-
-  useEffect(() => {
-    if (loadedData.length > 3) {
-      if (!isPlaying) videoRef.current[videoId].pause();
-      else startPlay && videoRef.current[videoId].play();
-    }
-  }, [startPlay, videoId, isPlaying, loadedData]);
-
-  const handleLoadedMetadata = (i, e) => setLoadedData((pre) => [...pre, e]);
-
-  useEffect(() => {
-    let currentProgress = 0;
-    let span = videoSpanRef.current;
-    if (span[videoId]) {
-      // animate the progress of the video
-      let anime = gsap.to(span[videoId], {
-        onUpdate: () => {
-          const progress = Math.ceil(anime.progress() * 100);
-          if (progress !== currentProgress) {
-            currentProgress = progress;
-            gsap.to(videoDivRef.current[videoId], {
-              width:
-                window.innerWidth < 760
-                  ? "10vw"
-                  : window.innerWidth < 1200
-                  ? "10vw"
-                  : "4vw",
-            });
-            gsap.to(span[videoId], {
-              width: `${currentProgress}%`,
-              backgroundColor: "white",
-            });
-          }
-        },
-        onComplete: () => {
-          if (isPlaying) {
-            gsap.to(videoDivRef.current[videoId], { width: "12px" });
-            gsap.to(span[videoId], { backgroundColor: "#afafaf" });
-          }
-        },
-      });
-      if (videoId === 0) {
-        anime.restart();
-      }
-      const animeUpdate = () => {
-        anime.progress(
-          videoRef.current[videoId].currentTime /
-            highlightsSlides[videoId].videoDuration
-        );
-      };
-      if (isPlaying) {
-        gsap.ticker.add(animeUpdate);
-      } else {
-        gsap.ticker.remove(animeUpdate);
-      }
-    }
-  }, [videoId, startPlay]);
-
-  type HandleProcessProps = {
-    type: "video-last" | "video-end" | "video-reset" | "play";
-    i: number;
-  };
-
-  const handleProcess = ({ type, i }: HandleProcessProps) => {
-    switch (type) {
-      case "video-end":
-        setVideo((preVideo) => ({ ...preVideo, isEnd: true, videoId: i + 1 }));
-        break;
-      case "video-last":
-        setVideo((preVideo) => ({ ...preVideo, isLastVideo: true }));
-        break;
-      case "video-reset":
-        setVideo((preVideo) => ({
-          ...preVideo,
-          isLastVideo: false,
-          videoId: 0,
-        }));
-        break;
-      case "play":
-        setVideo((preVideo) => ({
-          ...preVideo,
-          isPlaying: !preVideo.isPlaying,
-        }));
-        break;
-
-      default:
-        return video;
-    }
-  };
   return (
     <>
       <div className="flex items-center">
