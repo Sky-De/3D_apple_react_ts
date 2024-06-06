@@ -11,26 +11,37 @@ const VideoCarousel = () => {
     videoSpanRef,
     setVideo,
     handleProcess,
+    handleElementRef,
     handleLoadedMetadata,
   } = useVideoAnimation();
 
   return (
     <>
-      <div className="flex items-center">
+      <div data-testid="Carousel__Container" className="flex items-center">
         {highlightsSlides.map((list, i) => (
-          <div key={list.id} id="slider" className="sm:pr-20 pr-10">
-            <div className="video-carousel_container">
-              <div className="w-full h-full flex-center rounded-3xl overflow-hidden bg-black">
+          <div
+            data-testid="Carousel__Slider"
+            key={list.id}
+            id="slider"
+            className="sm:pr-20 pr-10"
+          >
+            <div
+              data-testid="Carousel__Slider--item"
+              className="video-carousel_container"
+            >
+              <div
+                data-testid="Carousel__Slider--videoCon"
+                className="w-full h-full flex-center rounded-3xl overflow-hidden bg-black"
+              >
                 <video
+                  data-testid="Carousel__Slider--video"
                   onEnded={() =>
                     i !== 3
                       ? handleProcess({ type: "video-end", i })
                       : handleProcess({ type: "video-last", i })
                   }
                   onLoadedMetadata={(e) => handleLoadedMetadata(i, e)}
-                  ref={(el) => {
-                    if (el !== null) videoRef.current[i] = el;
-                  }}
+                  ref={(el) => handleElementRef({ el, i, ref: videoRef })}
                   onPlay={() => {
                     setVideo((preVideo) => ({ ...preVideo, isPlaying: true }));
                   }}
@@ -41,9 +52,8 @@ const VideoCarousel = () => {
                   className={`${
                     list.id === 2 && "translate-x-44"
                   } pointer-events-none`}
-                >
-                  <source src={list.video} type="video/mp4" />
-                </video>
+                  src={list.video}
+                />
               </div>
               <div className="absolute top-12 left-[5%] z-10">
                 {list.textLists.map((text) => (
@@ -56,26 +66,30 @@ const VideoCarousel = () => {
           </div>
         ))}
       </div>
-      <div className="relative flex-center mt-10">
-        <div className="flex-center py-5 px-7 bg-gray-300 backdrop-blur rounded-full">
+      <div
+        data-testid="Carousel__Actions"
+        className="relative flex-center mt-10"
+      >
+        <div
+          data-testid="Carousel__Actions--con"
+          className="flex-center py-5 px-7 bg-gray-300 backdrop-blur rounded-full"
+        >
           {videoRef.current.map((_, i) => (
             <span
+              data-testid="Carousel__Actions--loading"
               key={i}
-              ref={(el) => {
-                if (el !== null) videoDivRef.current[i] = el;
-              }}
+              ref={(el) => handleElementRef({ el, i, ref: videoDivRef })}
               className="mx-2 w-3 h-3 bg-gray-200 rounded-full relative cursor-pointer"
             >
               <span
                 className="absolute h-full w-full rounded-full"
-                ref={(el) => {
-                  if (el !== null) videoSpanRef.current[i] = el;
-                }}
+                ref={(el) => handleElementRef({ el, i, ref: videoSpanRef })}
               />
             </span>
           ))}
         </div>
         <button
+          data-testid="Carousel__Actions--btn"
           onClick={
             isLastVideo
               ? () => handleProcess({ type: "video-reset", i: 1 })

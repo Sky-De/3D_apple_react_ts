@@ -141,6 +141,18 @@ export const useVideoAnimation = () => {
     }
   };
 
+  const handleElementRef = ({
+    el,
+    ref,
+    i,
+  }: {
+    el: HTMLVideoElement | HTMLSpanElement | null;
+    ref: React.MutableRefObject<HTMLSpanElement[] | HTMLVideoElement[]>;
+    i: number;
+  }) => {
+    if (el !== null) ref.current[i] = el;
+  };
+
   return {
     videoRef,
     videoSpanRef,
@@ -148,8 +160,9 @@ export const useVideoAnimation = () => {
     startPlay,
     isLastVideo,
     isPlaying,
-    handleLoadedMetadata,
     handleProcess,
+    handleElementRef,
+    handleLoadedMetadata,
     // fix-create handler for setting video
     setVideo,
   };
