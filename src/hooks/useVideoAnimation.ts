@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { highlightsSlides } from "../constants";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 type HandleProcessProps = {
   type: "video-last" | "video-end" | "video-reset" | "play";
@@ -30,8 +32,21 @@ export const useVideoAnimation = () => {
   const [video, setVideo] = useState<VideoState>(InitailVideoState);
   const { startPlay, videoId, isLastVideo, isPlaying } = video;
   const [loadedData, setLoadedData] = useState([]);
+  const [isInView, setIsInView] = useState<boolean>(false);
 
   useGSAP(() => {
+    gsap.to("#slider", {
+      scrollTrigger: {
+        start: "top -100%",
+        // end: "top -150%",
+        onEnter: () => {
+          console.log("enter");
+          setIsInView(true);
+        },
+        onLeave: () => console.log("leave"),
+      },
+    });
+
     gsap.to("#slider", {
       transform: `translateX(${-100 * videoId}%)`,
       duration: 2,
@@ -60,11 +75,13 @@ export const useVideoAnimation = () => {
   useEffect(() => {
     if (loadedData.length > 3) {
       if (!isPlaying) videoRef.current[videoId].pause();
-      else startPlay && videoRef.current[videoId].play();
+      else startPlay && isInView && videoRef.current[videoId].play();
     }
-  }, [startPlay, videoId, isPlaying, loadedData]);
+  }, [startPlay, videoId, isPlaying, loadedData, isInView]);
 
-  const handleLoadedMetadata = (i, e) => setLoadedData((pre) => [...pre, e]);
+  const handleLoadedMetadata = (i, e) => {
+    setLoadedData((pre) => [...pre, e]);
+  };
 
   useEffect(() => {
     let currentProgress = 0;
