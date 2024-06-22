@@ -84,6 +84,7 @@ const Model = () => {
                       className="w-6 h-6 rounded-full mx-2 cursor-pointer"
                       style={{
                         backgroundColor: item.color[0],
+                        border: model.title === item.title ? "2px solid" : "",
                       }}
                       onClick={() => setModel(item)}
                     ></li>
