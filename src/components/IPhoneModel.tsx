@@ -13,7 +13,7 @@ import * as THREE from "three";
 export function IPhoneModel(props) {
   const { nodes, materials } = useGLTF("/models/scene.glb");
 
-  // const texture = useTexture(props.item.img);
+  const texture = useTexture(props.item.img);
 
   useEffect(() => {
     Object.entries(materials).map((material) => {
@@ -24,7 +24,7 @@ export function IPhoneModel(props) {
         material[0] !== "jlzuBkUzuJqgiAK" &&
         material[0] !== "xNrofRCqOXXHVZt"
       ) {
-        console.log(material[1].color);
+        // console.log(material[1].color);
         material[1].color = new THREE.Color(props.item.color[0]);
       }
 
@@ -145,7 +145,9 @@ export function IPhoneModel(props) {
         geometry={nodes.xXDHkMplTIDAXLN.geometry}
         material={materials.pIJKfZsazmcpEiU}
         scale={0.01}
-      />
+      >
+        <meshStandardMaterial roughness={1} map={texture} />
+      </mesh>
       <mesh
         castShadow
         receiveShadow
