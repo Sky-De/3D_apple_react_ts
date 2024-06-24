@@ -18,9 +18,7 @@ const ModelView = ({
     <View
       index={index}
       id={gsapType}
-      className={`border-2 border-red-500 w-full h-full ${
-        index === 2 ? "right-[-100%]" : ""
-      }`}
+      className={`w-full h-full absolute ${index === 2 ? "right-[-100%]" : ""}`}
     >
       {/* Ambient Light */}
       <ambientLight intensity={0.3} />
@@ -50,6 +48,7 @@ const ModelView = ({
           <IPhoneModel
             item={item}
             scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
+            size={size}
           />
         </Suspense>
       </group>

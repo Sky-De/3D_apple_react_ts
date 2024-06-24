@@ -11,6 +11,7 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export function IPhoneModel(props) {
+  // FIX -- use props.size
   const { nodes, materials } = useGLTF("/models/scene.glb");
 
   const texture = useTexture(props.item.img);

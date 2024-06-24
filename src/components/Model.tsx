@@ -1,15 +1,16 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ModelView from "./ModelView";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { yellowImg } from "../utils";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
 import { models, sizes } from "../constants";
+import { animateWithGsapTimeline } from "../utils/animations";
 
 const Model = () => {
-  const [size, setSize] = useState("small");
+  const [size, setSize] = useState<"small" | "large">("small");
   const [model, setModel] = useState({
     title: "iPhone 15 Pro in Natural Titanium",
     color: ["#8F8A81", "#FFel7B9", "#6F6C64"],
@@ -23,8 +24,40 @@ const Model = () => {
   const small = useRef(new THREE.Group());
   const large = useRef(new THREE.Group());
   // rotation
-  const [smallRotaion, setSmallRotation] = useState(0);
-  const [largeRotaion, setLargeRotation] = useState(0);
+  const [smallRotation, setSmallRotation] = useState(0);
+  const [largeRotation, setLargeRotation] = useState(0);
+  // timeline
+  const timeLine = gsap.timeline();
+
+  useEffect(() => {
+    if (size === "large") {
+      animateWithGsapTimeline(
+        timeLine,
+        small,
+        smallRotation,
+        "#view1",
+        "#view2",
+        {
+          transform: "translateX(-100%)",
+          duration: 2,
+        }
+      );
+    }
+
+    if (size === "small") {
+      animateWithGsapTimeline(
+        timeLine,
+        large,
+        largeRotation,
+        "#view2",
+        "#view1",
+        {
+          transform: "translateX(0)",
+          duration: 2,
+        }
+      );
+    }
+  }, [size]);
 
   useGSAP(() => {
     gsap.to("#heading", { y: 0, opacity: 1 });
