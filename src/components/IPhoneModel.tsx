@@ -24,8 +24,8 @@ export function IPhoneModel(props) {
         material[0] !== "jlzuBkUzuJqgiAK" &&
         material[0] !== "xNrofRCqOXXHVZt"
       ) {
-        console.log(material[1] && material[1].color);
-        //   // material[1].color = new THREE.Color(props.item.color[0]);
+        console.log(material[1].color);
+        material[1].color = new THREE.Color(props.item.color[0]);
       }
 
       material[1].needsUpdate = true;

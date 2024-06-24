@@ -36,7 +36,7 @@ const Model = () => {
           Take a closer look
         </h2>
         <div className="flex flex-col items-center mt-5">
-          <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
+          <div className="w-full h-[70vh] overflow-hidden relative">
             {/* mobile */}
             <ModelView
               index={1}
@@ -71,42 +71,39 @@ const Model = () => {
             >
               <View.Port />
             </Canvas>
+          </div>
 
-            <div className="mx-auto w-full">
-              <p className="text-sm font-light text-center mb-5">
-                {model.title}
-              </p>
-              <div className="flex-center">
-                <ul className="color-container">
-                  {models.map((item, index) => (
-                    <li
-                      key={index}
-                      className="w-6 h-6 rounded-full mx-2 cursor-pointer"
-                      style={{
-                        backgroundColor: item.color[0],
-                        border: model.title === item.title ? "2px solid" : "",
-                      }}
-                      onClick={() => setModel(item)}
-                    ></li>
-                  ))}
-                </ul>
-                <button className="size-btn-container">
-                  {sizes.map(({ label, value }) => (
-                    <span
-                      className="size-btn"
-                      style={{
-                        backgroundColor:
-                          size === value ? "white" : "transparent",
-                        color: size === value ? "black" : "white",
-                      }}
-                      key={label}
-                      onClick={() => setSize(value)}
-                    >
-                      {label}
-                    </span>
-                  ))}
-                </button>
-              </div>
+          <div className="mx-auto w-full">
+            <p className="text-sm font-light text-center mb-5">{model.title}</p>
+            <div className="flex-center">
+              <ul className="color-container">
+                {models.map((item, index) => (
+                  <li
+                    key={index}
+                    className="w-6 h-6 rounded-full mx-2 cursor-pointer"
+                    style={{
+                      backgroundColor: item.color[0],
+                      border: model.title === item.title ? "2px solid" : "",
+                    }}
+                    onClick={() => setModel(item)}
+                  ></li>
+                ))}
+              </ul>
+              <button className="size-btn-container">
+                {sizes.map(({ label, value }) => (
+                  <span
+                    className="size-btn"
+                    style={{
+                      backgroundColor: size === value ? "white" : "transparent",
+                      color: size === value ? "black" : "white",
+                    }}
+                    key={label}
+                    onClick={() => setSize(value)}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </button>
             </div>
           </div>
         </div>
