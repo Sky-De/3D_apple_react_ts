@@ -86,7 +86,7 @@ const Features = () => {
                   />
                 </div>
               </div>
-
+              {/* FIX-Make this component - reused in HowItWorks - check for diff */}
               <div className="feature-text-container">
                 <div className="flex-1 flex-center">
                   <p className="feature-text g_text">
