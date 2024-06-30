@@ -1,9 +1,8 @@
-import React from "react";
 import { footerLinks } from "../constants";
 
 const Footer = () => {
   return (
-    <footer className="py-5 sm:px-10 px-5">
+    <footer className="py-5 sm:px-10 px-5" data-testid="footer">
       <div className="screen-max-width">
         <>
           <p className="font-semibold text-gray text-xs">
@@ -26,10 +25,16 @@ const Footer = () => {
           </p>
           <div className="flex gap-2">
             {footerLinks.map((link, i) => (
-              <p key={link} className="footer_link">
+              <p data-testid="footer_link" key={link} className="footer_link">
                 {link}{" "}
                 {i !== footerLinks.length - 1 && (
-                  <span className="text-gray ml-1"> | </span>
+                  <span
+                    data-testid="footer_link--divider"
+                    className="text-gray ml-1"
+                  >
+                    {" "}
+                    |{" "}
+                  </span>
                 )}
               </p>
             ))}
