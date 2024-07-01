@@ -129,3 +129,24 @@ canvas {
     @apply font-semibold text-xs cursor-pointer underline text-blue hover:opacity-50 transition;
   }
 }
+
+/* maintai page */
+.maintenance {
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.maintenance__svg {
+  max-height: 80vh;
+}
+
+.maintenance__svg h3 {
+  color: var(--text-err);
+}
+.maintenance__svg h4 {
+  color: var(--text-info);
+}
