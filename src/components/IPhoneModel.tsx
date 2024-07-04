@@ -10,10 +10,10 @@ import { useEffect } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
-type IphoneModelProps = {
+export type IphoneModelProps = {
   item: {
     title: string;
-    color: [string, string, string];
+    color: string[];
     img: string;
   };
   scale: [number, number, number];
@@ -114,7 +114,6 @@ export function IPhoneModel(props: IphoneModelProps) {
     });
   }, [materials, props.item]);
 
-  console.log(nodes.DjsDkGiopeiEJZK);
   return (
     <group {...props} dispose={null}>
       <mesh
