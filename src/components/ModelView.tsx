@@ -5,6 +5,24 @@ import { IPhoneModel } from "./IPhoneModel";
 import * as THREE from "three";
 import Loader from "./Loader";
 
+type ModelViewProps = {
+  index: number;
+  groupRef: React.MutableRefObject<THREE.Group<THREE.Object3DEventMap>>;
+  gsapType: string;
+  controlRef: React.MutableRefObject<null>;
+  setRotationState: React.Dispatch<React.SetStateAction<number>>;
+  item: {
+    title: string;
+    color: string[];
+    img: string;
+  };
+  size: string;
+};
+//FIX - replace this type with better type check
+type temperaryType = {
+  getAzimuthalAngle: () => number;
+};
+
 const ModelView = ({
   index,
   groupRef,
@@ -13,7 +31,16 @@ const ModelView = ({
   setRotationState,
   item,
   size,
-}) => {
+}: ModelViewProps) => {
+  const handleOnEnd = () => {
+    if (controlRef.current) {
+      console.log(controlRef.current);
+      setRotationState(
+        (controlRef.current as temperaryType).getAzimuthalAngle()
+      );
+    }
+  };
+
   return (
     <View
       index={index}
@@ -37,7 +64,7 @@ const ModelView = ({
         enablePan={false}
         rotateSpeed={0.8}
         target={new THREE.Vector3(0, 0, 0)}
-        onEnd={() => setRotationState(controlRef.current.getAzimuthalAngle())}
+        onEnd={handleOnEnd}
       />
       <group
         ref={groupRef}
