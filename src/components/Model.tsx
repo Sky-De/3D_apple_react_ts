@@ -10,7 +10,7 @@ import { models, sizes } from "../constants";
 import { animateWithGsapTimeline } from "../utils/animations";
 
 const Model = () => {
-  const [size, setSize] = useState<"small" | "large">("small");
+  const [size, setSize] = useState<string>("small");
   const [model, setModel] = useState({
     title: "iPhone 15 Pro in Natural Titanium",
     color: ["#8F8A81", "#FFel7B9", "#6F6C64"],
