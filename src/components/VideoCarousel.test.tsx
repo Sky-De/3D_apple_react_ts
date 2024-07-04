@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import VideoCarousel from "./VideoCarousel";
 import "@testing-library/jest-dom";
 import { highlightsSlides } from "../constants";
