@@ -1,9 +1,8 @@
-import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { animateWithGsap } from "../utils/animations";
 import { explore1Img, explore2Img, exploreVideo } from "../utils";
 import gsap from "gsap";
-import { animateWithGsap } from "../utils/animations";
-
 const Features = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -38,8 +37,11 @@ const Features = () => {
   }, []);
 
   return (
-    <section className="h-full common-padding bg-zinc relative overflow-hidden">
-      <div className="screen-max-wdith">
+    <section
+      data-testid="features_section"
+      className="h-full common-padding bg-zinc relative overflow-hidden"
+    >
+      <div data-testid="features_container" className="screen-max-wdith">
         <div className="mb-12 w-full">
           <h1 id="features_title" className="section-heading">
             Explore the full story.
@@ -57,6 +59,7 @@ const Features = () => {
           <div className="flex-center flex-col sm:px-10">
             <div className="relative h-[50vh] w-full flex items-center">
               <video
+                data-testid="features_video"
                 playsInline
                 id="exploreVideo"
                 className="w-full h-full object-cover object-center"
@@ -86,7 +89,6 @@ const Features = () => {
                   />
                 </div>
               </div>
-              {/* FIX-Make this component - reused in HowItWorks - check for diff */}
               <div className="feature-text-container">
                 <div className="flex-1 flex-center">
                   <p className="feature-text g_text">
