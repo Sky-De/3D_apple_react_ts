@@ -75,7 +75,6 @@ const HowItWorks = () => {
             Honkai: Star Rail
           </p>
         </div>
-        {/* FIX-Make this component - reused in features - check for diff */}
         <div className="hiw-text-container">
           <div className="flex flex-1 justify-center flex-col gap-4">
             <p className="hiw-text g_fadeIn">
