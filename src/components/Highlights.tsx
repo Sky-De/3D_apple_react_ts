@@ -11,10 +11,14 @@ const Highlights = () => {
   return (
     <section
       id="highlights"
+      data-testid="highlights_section"
       className="w-screen overflow-hidden h-full common-padding bg-zinc"
     >
-      <div className="screen-max-width">
-        <div className="mb-12 w-full md:flex items-end justify-between">
+      <div data-testid="highlights_container" className="screen-max-width">
+        <div
+          data-testid="highlights_content"
+          className="mb-12 w-full md:flex items-end justify-between"
+        >
           <h1 id="title" className="section-heading">
             Get the highlights.
           </h1>
