@@ -31,8 +31,8 @@ const HowItWorks = () => {
     );
   }, []);
   return (
-    <section className="common-padding">
-      <div className="screen-maxj-width">
+    <section data-testid="howItWorks_section" className="common-padding">
+      <div data-testid="howItWorks_container" className="screen-maxj-width">
         <div id="chip" className="flex-center w-full my-20">
           <img src={chipImg} alt="chip" width={180} height={180} />
         </div>
@@ -58,6 +58,7 @@ const HowItWorks = () => {
             </div>
             <div className="hiw-video">
               <video
+                data-testid="howItWorks_video"
                 ref={videoRef}
                 className="pointer-events-none"
                 playsInline
