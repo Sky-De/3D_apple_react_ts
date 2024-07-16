@@ -1,12 +1,24 @@
 import gsap from "gsap";
-export const animateWithGsapTimeline = (
+import * as THREE from "three";
+
+export type AnimateWithGsapTimelineType = {
+  timeline: gsap.core.Timeline;
+  rotationRef: React.MutableRefObject<THREE.Group<THREE.Object3DEventMap>>;
+  rotationState: number;
+  firstTarget: string;
+  secondTarget: string;
+  animationProps: {
+    [key: string]: string | number;
+  };
+};
+export const animateWithGsapTimeline = ({
   timeline,
   rotationRef,
   rotationState,
   firstTarget,
   secondTarget,
-  animationProps
-) => {
+  animationProps,
+}: AnimateWithGsapTimelineType) => {
   timeline.to(rotationRef.current.rotation, {
     y: rotationState,
     duration: 1,

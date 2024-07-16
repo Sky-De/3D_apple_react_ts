@@ -31,31 +31,31 @@ const Model = () => {
 
   useEffect(() => {
     if (size === "large") {
-      animateWithGsapTimeline(
-        timeLine,
-        small,
-        smallRotation,
-        "#view1",
-        "#view2",
-        {
+      animateWithGsapTimeline({
+        timeline: timeLine,
+        rotationRef: small,
+        rotationState: smallRotation,
+        firstTarget: "#view1",
+        secondTarget: "#view2",
+        animationProps: {
           transform: "translateX(-100%)",
           duration: 2,
-        }
-      );
+        },
+      });
     }
 
     if (size === "small") {
-      animateWithGsapTimeline(
-        timeLine,
-        large,
-        largeRotation,
-        "#view2",
-        "#view1",
-        {
+      animateWithGsapTimeline({
+        timeline: timeLine,
+        rotationRef: large,
+        rotationState: largeRotation,
+        firstTarget: "#view2",
+        secondTarget: "#view1",
+        animationProps: {
           transform: "translateX(0)",
           duration: 2,
-        }
-      );
+        },
+      });
     }
   }, [size]);
 
