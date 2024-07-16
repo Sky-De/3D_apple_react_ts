@@ -44,7 +44,15 @@ export const animateWithGsapTimeline = ({
   );
 };
 
-export const animateWithGsap = (target, animationProps, scrollProps) => {
+export const animateWithGsap = (
+  target: string,
+  animationProps: {
+    [key: string]: string | number;
+  },
+  scrollProps: {
+    [key: string]: string | number;
+  }
+) => {
   gsap.to(target, {
     ...animationProps,
     scrollTrigger: {
